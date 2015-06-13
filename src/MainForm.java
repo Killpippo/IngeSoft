@@ -154,7 +154,7 @@ public class MainForm {
                  break;
                  
              case "TEST":
-                 TestUnit.EseguiTest();
+                 RandomDataGenerator.EseguiTest();
                  JOptionPane.showMessageDialog(mainFrame, "Generazione dati di test completata");
                  btnSave.setEnabled(true);
                  break;
