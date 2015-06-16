@@ -10,6 +10,7 @@ public class Visitatore extends Entity implements Serializable {
     private List<Calendar> visite;
     private List<Valutazione> valutazioni;
     
+    
     public Visitatore() {
         super();
         cognome = "";

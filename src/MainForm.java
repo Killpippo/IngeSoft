@@ -17,7 +17,7 @@ public class MainForm {
         inizializzaInterfaccia();
     }
     
-    public static void main( String[] argomenti){        
+    public static void main__( String[] argomenti){        
         mainForm = new MainForm();
     }
     
@@ -105,7 +105,7 @@ public class MainForm {
                  loadDialog.setVisible(true);
                  String file = loadDialog.getFile();                 
                  if (file != null) {
-                     if (!PI1Manager.LoadFromFile( PathFile(loadDialog) ))
+                     if (!PI2Manager.LoadFromFile( PathFile(loadDialog) ))
                          JOptionPane.showMessageDialog(mainFrame, "Errore caricamento file: " + file );
                  }
              } break;
@@ -124,7 +124,7 @@ public class MainForm {
              case "SETVIS":
                  String codiceFiscale = JOptionPane.showInputDialog("Inserisci Codice Fiscale");
                  if (codiceFiscale != null) {
-                     Visitatore visitatore = PI1Manager.getVisitatore(codiceFiscale);
+                     Visitatore visitatore = PI2Manager.getVisitatore(codiceFiscale);
                      
                      if (visitatore == null) {
                          JOptionPane.showMessageDialog(mainFrame, "Visitatore inesistente");
@@ -146,7 +146,7 @@ public class MainForm {
                  saveDialog.setVisible(true);
                  String file = saveDialog.getFile();                 
                  if (file != null) {
-                     if (!PI1Manager.SaveOnFile( PathFile(saveDialog) ))
+                     if (!PI2Manager.SaveOnFile( PathFile(saveDialog) ))
                          JOptionPane.showMessageDialog(mainFrame, "Errore salvataggio file: " + file);
                      else
                          btnSave.setEnabled(false);

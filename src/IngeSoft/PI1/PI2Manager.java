@@ -4,15 +4,13 @@ import java.util.*;
 import java.io.*;
 import java.nio.ByteBuffer;
 
-public class PI1Manager {
+public class PI2Manager {
 
     static private List<Visitatore> visitatori;
     static private List<Espositore> espositori;
     
     static public Visitatore getVisitatore( String _codiceFiscale ) {
-        if (visitatori == null) return null;
-        
-        for (Visitatore visitatore : visitatori) {
+        for (Visitatore visitatore : getListVisitatore()) {
             if (visitatore.getCodiceFiscale().equalsIgnoreCase(_codiceFiscale)) {
                 return visitatore;
             }
@@ -22,33 +20,22 @@ public class PI1Manager {
     }
     
     static public boolean addVisitatore( Visitatore _visitatore ) {
-        if (visitatori == null) visitatori = new ArrayList<>();
-        
         // gia' dichiarato
-        if (visitatori.contains(_visitatore)) return false;
+        if (getListVisitatore().contains(_visitatore)) return false;
         
-        visitatori.add( _visitatore );
+        getListVisitatore().add( _visitatore );
         
         return true;
     }
     
-    static public String [] getListVisitatore() {
-        if (visitatori == null || visitatori.isEmpty()) return null;
-        
-        String [] aszLista = new String[visitatori.size()];
-        
-        for ( int i=0; i<visitatori.size(); i++) {
-            aszLista[i] = visitatori.get(i).getNome() + " " + visitatori.get(i).getCognome() +
-                            " (" + visitatori.get(i).getCodiceFiscale() + ")";
-        }
-        
-        return aszLista;
+    static public List<Visitatore> getListVisitatore() {
+       if (visitatori == null) visitatori = new ArrayList<>();
+       
+       return visitatori;
     }
     
     static public Espositore getEspositore( String _IVA ) {
-        if (espositori == null) return null;
-        
-        for (Espositore visitatore : espositori) {
+        for (Espositore visitatore : getListEspositori()) {
             if (visitatore.getIVA().equalsIgnoreCase(_IVA)) {
                 return visitatore;
             }
@@ -57,36 +44,25 @@ public class PI1Manager {
         return null;
     }
     
-    static public String [] getListEspositori() {
-        if (espositori == null || espositori.isEmpty()) return null;
-        
-        String [] aszLista = new String[espositori.size()];
-        
-        for ( int i=0; i<espositori.size(); i++) {
-            aszLista[i] = espositori.get(i).getNome() +
-                            " (" + espositori.get(i).getIVA() + ";" +
-                                espositori.get(i).getPaese() + ";" +
-                                espositori.get(i).getArea() + ")";
-        }
-        
-        return aszLista;
+    static public List<Espositore> getListEspositori() {
+          if (espositori == null) espositori = new ArrayList<Espositore>();
+          
+          return espositori;
     }
     
     static public boolean addEspositore( Espositore _espositore ) {
-        if (espositori == null) espositori = new ArrayList<Espositore>();
-        
         // gia' dichiarato
-        if (espositori.contains(_espositore)) return false;
+        if (getListEspositori().contains(_espositore)) return false;
         
-        espositori.add( _espositore );
+        getListEspositori().add( _espositore );
         
         return true;
     }
     
     static public void SvuotaDati()
     {
-        if (espositori != null) espositori.clear();
-        if (visitatori != null) visitatori.clear();
+        getListVisitatore().clear();
+        getListEspositori().clear();
     }
         
     static public boolean SaveOnFile( String _filename ) {
@@ -98,18 +74,18 @@ public class PI1Manager {
                  ObjectOutputStream objstream = new ObjectOutputStream(fstream)) {
                 
                 // salva gli espositori
-                int iSize = (espositori != null) ? (espositori.size()) : (0);
+                int iSize = getListEspositori().size();
                 
                 buffer.putInt(iSize);
                 
                 fstream.write( buffer.array(), 0, 4 );
                 
                 for ( int i=0; i<iSize; i++ ) {
-                    objstream.writeObject(espositori.get(i));
+                    objstream.writeObject(getListEspositori().get(i));
                 }
                 
                 // salva i visitatori
-                iSize = (visitatori != null) ? (visitatori.size()) : (0);
+                iSize = getListVisitatore().size();
                 
                 buffer.clear();
                 buffer.putInt(iSize);
@@ -117,7 +93,7 @@ public class PI1Manager {
                 fstream.write( buffer.array(), 0, 4 );
                 
                 for ( int i=0; i<iSize; i++ ) {
-                    objstream.writeObject(visitatori.get(i));
+                    objstream.writeObject(getListVisitatore().get(i));
                 }
             }
         }
@@ -131,11 +107,7 @@ public class PI1Manager {
     static public boolean LoadFromFile( String _filename ) {
         
         // preparo le liste
-        if (espositori != null) espositori.clear();
-        else espositori = new ArrayList<>();
-        
-        if (visitatori != null) visitatori.clear();
-        else visitatori = new ArrayList<>();
+        SvuotaDati();
         
         try {
             ByteBuffer buffer = ByteBuffer.allocate(4);
@@ -158,7 +130,7 @@ public class PI1Manager {
                 
                 // espositori
                 for ( int i=0; i<iSize; i++ ) {
-                    espositori.add((Espositore) objstream.readObject() );
+                    getListEspositori().add((Espositore) objstream.readObject() );
                 }
                 
                 // numero visitatori
@@ -175,7 +147,7 @@ public class PI1Manager {
                 iSize = buffer.getInt(0);
                 
                 for ( int i=0; i<iSize; i++ ) {
-                    visitatori.add((Visitatore) objstream.readObject() );
+                    getListVisitatore().add((Visitatore) objstream.readObject() );
                 }
                 
             }

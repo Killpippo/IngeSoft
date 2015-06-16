@@ -95,7 +95,7 @@ public class AddEspForm extends BaseForm {
                  }
                  
                  // inserimento nel gestore
-                 if (!PI1Manager.addEspositore( new Espositore( nome, iva, paese, area))) {
+                 if (!PI2Manager.addEspositore( new Espositore( nome, iva, paese, area))) {
                      JOptionPane.showMessageDialog(mainFrame, "Espositore con stessa IVA gia' presente" );
                      return;
                  }

@@ -77,7 +77,7 @@ public class AddVisForm extends BaseForm {
                  }
                  
                  // inserimento nel gestore
-                 if (!PI1Manager.addVisitatore(new Visitatore( nome, cognome, cf))) {
+                 if (!PI2Manager.addVisitatore(new Visitatore( nome, cognome, cf))) {
                      JOptionPane.showMessageDialog(mainFrame, "Visitatore con stesso Codice Fiscale gia' presente" );
                      return;
                  }

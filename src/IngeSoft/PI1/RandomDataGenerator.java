@@ -6,11 +6,11 @@ public class RandomDataGenerator {
 
     static public void EseguiTest()
     {
-        PI1Manager.SvuotaDati();
+        PI2Manager.SvuotaDati();
         
         // genera un tot di espositori
         for ( int i=0; i<20; i++) {
-            PI1Manager.addEspositore(new Espositore("ESP" + (i + 1), "IVA" + (i + 1), "PAESE" + (i + 1), i + 10 ));
+            PI2Manager.addEspositore(new Espositore("ESP" + (i + 1), "IVA" + (i + 1), "PAESE" + (i + 1), i + 10 ));
         }
         
         // genera un tot di visitatori
@@ -27,17 +27,17 @@ public class RandomDataGenerator {
             // immetti alcune votazioni
             if ((i%2) == 0)
             {
-                vis.addValutazione(PI1Manager.getEspositore("IVA" + (i+1)), new GregorianCalendar(2015, 1, 1), i * 5 );
-                vis.addValutazione(PI1Manager.getEspositore("IVA" + (i+3)), new GregorianCalendar(2015, 1, 3), i * 3 );
-                vis.addValutazione(PI1Manager.getEspositore("IVA" + (i+5)), new GregorianCalendar(2015, 1, 5), i * 4 );
+                vis.addValutazione(PI2Manager.getEspositore("IVA" + (i+1)), new GregorianCalendar(2015, 1, 1), i * 5 );
+                vis.addValutazione(PI2Manager.getEspositore("IVA" + (i+3)), new GregorianCalendar(2015, 1, 3), i * 3 );
+                vis.addValutazione(PI2Manager.getEspositore("IVA" + (i+5)), new GregorianCalendar(2015, 1, 5), i * 4 );
             }
             else
             {
-                vis.addValutazione(PI1Manager.getEspositore("IVA" + (i+1)), new GregorianCalendar(2015, 1, 2), i * 5 );
-                vis.addValutazione(PI1Manager.getEspositore("IVA" + (i+2)), new GregorianCalendar(2015, 1, 4), i * 6 );
+                vis.addValutazione(PI2Manager.getEspositore("IVA" + (i+1)), new GregorianCalendar(2015, 1, 2), i * 5 );
+                vis.addValutazione(PI2Manager.getEspositore("IVA" + (i+2)), new GregorianCalendar(2015, 1, 4), i * 6 );
             }
 
-            PI1Manager.addVisitatore(vis);
+            PI2Manager.addVisitatore(vis);
         }
     }
 }

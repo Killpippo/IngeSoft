@@ -93,7 +93,7 @@ public class SetVisForm extends BaseForm {
                 
                 if (iva == null) return;
                 
-                Espositore espositore = PI1Manager.getEspositore(iva);
+                Espositore espositore = PI2Manager.getEspositore(iva);
                 
                 if (espositore == null) {
                     JOptionPane.showMessageDialog(mainFrame, "Espositore inesistente" );

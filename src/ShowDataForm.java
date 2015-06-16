@@ -19,7 +19,7 @@ public class ShowDataForm extends BaseForm {
         
         espositori.add("-- espositori --");
         
-        String [] aszList = PI1Manager.getListEspositori();
+        String [] aszList = null; //PI2Manager.getListEspositori();
         
         if (aszList != null)
             for ( int i=0; i<aszList.length; i++)
@@ -31,7 +31,7 @@ public class ShowDataForm extends BaseForm {
         
         visitatori.add("-- visitatori --");
         
-        aszList = PI1Manager.getListVisitatore();
+        aszList = null; //PI2Manager.getListVisitatore();
         
         if (aszList != null)
             for ( int i=0; i<aszList.length; i++)
