@@ -344,7 +344,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         if (PI2Manager.deleteVisitatore(szCF)) {               
             btnSave.setEnabled( true );
             
-            tblVisitatori.remove( tblVisitatori.getSelectedRow() );
+            ((DefaultTableModel) tblVisitatori.getModel()).removeRow(tblVisitatori.getSelectedRow());
         }
     }//GEN-LAST:event_btnDelVisMouseClicked
 
@@ -354,7 +354,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         if (PI2Manager.deleteEspositore(szIVA)) {               
             btnSave.setEnabled( true );
             
-            tblEspositori.remove( tblEspositori.getSelectedRow() );
+            ((DefaultTableModel) tblEspositori.getModel()).removeRow(tblEspositori.getSelectedRow());
         }
     }//GEN-LAST:event_btnDelEspMouseClicked
 

@@ -3,11 +3,18 @@ package IngeSoft.PI1;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 
 public class PI2ManagerTest {
     
     public PI2ManagerTest() {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        PI2Manager.SvuotaDati();
+        System.out.println("Restart test");
     }
 
     @Test
@@ -106,29 +113,14 @@ public class PI2ManagerTest {
 
     @Test
     public void testSvuotaDati() {
+        Espositore espositore = new Espositore("nome", "IVA", "paese", 123 );        
+        PI2Manager.addEspositore(espositore);
+        Visitatore visitatore = new Visitatore( "nome", "cognome", "CF");
+        PI2Manager.addVisitatore(visitatore);
+        
         PI2Manager.SvuotaDati();
         
         assertEquals(0, PI2Manager.getListEspositori().size() + PI2Manager.getListVisitatore().size());
     }
-
-//    @Test
-//    public void testSaveOnFile() {
-//        System.out.println("SaveOnFile");
-//        String _filename = "";
-//        boolean expResult = false;
-//        boolean result = PI2Manager.SaveOnFile(_filename);
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
-//    }
-//
-//    @Test
-//    public void testLoadFromFile() {
-//        System.out.println("LoadFromFile");
-//        String _filename = "";
-//        boolean expResult = false;
-//        boolean result = PI2Manager.LoadFromFile(_filename);
-//        assertEquals(expResult, result);
-//        fail("The test case is a prototype.");
-//    }
     
 }
