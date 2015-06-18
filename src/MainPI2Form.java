@@ -30,13 +30,13 @@ public class MainPI2Form extends javax.swing.JFrame {
                     }
                 });
         
-        // eventi pulsanti
-        //btnExit.addA
-        
-        RandomDataGenerator.EseguiTest();
+        //RandomDataGenerator.EseguiTest();
         
         // aggiornamento dati
-        AggiornaListe();
+        //AggiornaListe();
+        Visitatore visitatore = new Visitatore( "nome", "cognome", "CF");
+        PI2Manager.addVisitatore(visitatore);
+        PI2Manager.deleteVisitatore("CF");
     }
     
     @SuppressWarnings("unchecked")
@@ -124,10 +124,20 @@ public class MainPI2Form extends javax.swing.JFrame {
         btnSave.setActionCommand("SAVE");
         btnSave.setEnabled(false);
         btnSave.setPreferredSize(new java.awt.Dimension(45, 30));
+        btnSave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSaveMouseClicked(evt);
+            }
+        });
 
         btnExit.setText("Esci");
         btnExit.setActionCommand("EXIT");
         btnExit.setPreferredSize(new java.awt.Dimension(45, 30));
+        btnExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnExitMouseClicked(evt);
+            }
+        });
 
         btnAddEsp.setText("Aggiungi");
         btnAddEsp.setActionCommand("ADDESP");
@@ -135,14 +145,29 @@ public class MainPI2Form extends javax.swing.JFrame {
         btnDelEsp.setText("Rimuovi");
         btnDelEsp.setActionCommand("DELESP");
         btnDelEsp.setEnabled(false);
+        btnDelEsp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDelEspMouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Visitatori");
 
         btnLoad.setText("Carica Dati");
         btnLoad.setActionCommand("LOAD");
+        btnLoad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoadMouseClicked(evt);
+            }
+        });
 
         btnTest.setText("Genera Dati Casuali");
         btnTest.setActionCommand("TEST");
+        btnTest.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnTestMouseClicked(evt);
+            }
+        });
 
         tblVisitatori.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -182,6 +207,11 @@ public class MainPI2Form extends javax.swing.JFrame {
         btnDelVis.setText("Rimuovi");
         btnDelVis.setActionCommand("DELVIS");
         btnDelVis.setEnabled(false);
+        btnDelVis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDelVisMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,6 +290,73 @@ public class MainPI2Form extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExitMouseClicked
+        if (btnSave.isEnabled())
+        {
+            if (JOptionPane.showConfirmDialog(this,
+                    "Le modifiche non sono state salvate\nSei sicuro di voler uscire?", "Esci", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) return;
+        }
+        
+        System.exit(0);
+    }//GEN-LAST:event_btnExitMouseClicked
+
+    private void btnLoadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoadMouseClicked
+        FileDialog loadDialog = new FileDialog( mainForm, "Carica dati", FileDialog.LOAD );
+        loadDialog.setVisible(true);
+        String file = loadDialog.getFile();                 
+        if (file != null) {
+            if (!PI2Manager.LoadFromFile( PathFile(loadDialog) ))
+                JOptionPane.showMessageDialog(mainForm, "Errore caricamento file: " + file );
+            else
+                AggiornaListe();
+        }
+    }//GEN-LAST:event_btnLoadMouseClicked
+
+    private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
+        FileDialog saveDialog = new FileDialog( mainForm, "Carica dati", FileDialog.SAVE );
+        saveDialog.setVisible(true);
+        String file = saveDialog.getFile();                 
+        if (file != null) {
+            if (!PI2Manager.SaveOnFile( PathFile(saveDialog) ))
+                JOptionPane.showMessageDialog(mainForm, "Errore salvataggio file: " + file);
+            else
+                btnSave.setEnabled(false);
+        }
+    }//GEN-LAST:event_btnSaveMouseClicked
+
+    private void btnTestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTestMouseClicked
+        if (btnSave.isEnabled())
+        {
+            if (JOptionPane.showConfirmDialog(this,
+                    "Le modifiche non sono state salvate\nSei sicuro di voler sovrascrivere i dati?", "Esci", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) return;
+        }
+        
+        RandomDataGenerator.EseguiTest();
+        JOptionPane.showMessageDialog(mainForm, "Generazione dati di test completata");
+        btnSave.setEnabled(true);
+        AggiornaListe();
+    }//GEN-LAST:event_btnTestMouseClicked
+
+    private void btnDelVisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelVisMouseClicked
+        String szCF = tblVisitatori.getValueAt( tblVisitatori.getSelectedRow(), 2 ).toString();
+        
+        if (PI2Manager.deleteVisitatore(szCF)) {               
+            btnSave.setEnabled( true );
+            
+            tblVisitatori.remove( tblVisitatori.getSelectedRow() );
+        }
+    }//GEN-LAST:event_btnDelVisMouseClicked
+
+    private void btnDelEspMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelEspMouseClicked
+        String szIVA = tblEspositori.getValueAt( tblEspositori.getSelectedRow(), 3 ).toString();
+        
+        if (PI2Manager.deleteEspositore(szIVA)) {               
+            btnSave.setEnabled( true );
+            
+            tblEspositori.remove( tblEspositori.getSelectedRow() );
+        }
+    }//GEN-LAST:event_btnDelEspMouseClicked
 
     public static void main(String args[]) {
         

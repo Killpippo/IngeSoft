@@ -75,20 +75,8 @@ public class Visitatore extends Entity implements Serializable {
         return aVisite;
     }
     
-    public String [] Valutazioni() {
-        if (valutazioni == null || valutazioni.isEmpty()) return null;
-        
-        String [] aszValutazioni = new String[valutazioni.size()];
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-        
-        for ( int i=0; i<valutazioni.size(); i++ )
-        {
-            aszValutazioni[i] = valutazioni.get(i).ivaEspositore + "; " +
-                                formatDate.format(valutazioni.get(i).visita.getTime()) + "; " +
-                                valutazioni.get(i).valutazione;
-        }
-        
-        return aszValutazioni;
+    public List<Valutazione> getValutazioni() {
+        return valutazioni;
     }
             
 }

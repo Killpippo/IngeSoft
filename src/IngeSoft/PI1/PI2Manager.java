@@ -20,12 +20,26 @@ public class PI2Manager {
     }
     
     static public boolean addVisitatore( Visitatore _visitatore ) {
+        if (_visitatore == null) return false;
+        
         // gia' dichiarato
         if (getListVisitatore().contains(_visitatore)) return false;
         
         getListVisitatore().add( _visitatore );
         
         return true;
+    }
+    
+    static public boolean deleteVisitatore( String _CF ) {
+        Visitatore vis = getVisitatore( _CF );
+        
+        if (vis != null) {
+            getListVisitatore().remove( vis );
+            
+            return true;
+        }
+        
+        return false;
     }
     
     static public List<Visitatore> getListVisitatore() {
@@ -35,9 +49,9 @@ public class PI2Manager {
     }
     
     static public Espositore getEspositore( String _IVA ) {
-        for (Espositore visitatore : getListEspositori()) {
-            if (visitatore.getIVA().equalsIgnoreCase(_IVA)) {
-                return visitatore;
+        for (Espositore espositore : getListEspositori()) {
+            if (espositore.getIVA().equalsIgnoreCase(_IVA)) {
+                return espositore;
             }
         }
         
@@ -51,12 +65,37 @@ public class PI2Manager {
     }
     
     static public boolean addEspositore( Espositore _espositore ) {
+        if (_espositore == null) return false;
         // gia' dichiarato
         if (getListEspositori().contains(_espositore)) return false;
         
         getListEspositori().add( _espositore );
         
         return true;
+    }
+    
+    static public boolean deleteEspositore( String _IVA ) {
+        Espositore esp = getEspositore( _IVA );
+        
+        if (esp != null)
+        {
+            getListEspositori().remove(esp);
+            
+            // elimina tutte le votazioni sui visitatore
+            for (Visitatore visitatore : getListVisitatore()) {
+                for (Valutazione val : visitatore.getValutazioni()) {
+                    if (val.ivaEspositore.equalsIgnoreCase(_IVA)) {
+                        visitatore.getValutazioni().remove(val);
+                        
+                        break;
+                    }
+                }
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
     
     static public void SvuotaDati()

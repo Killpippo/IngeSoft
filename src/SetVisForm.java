@@ -48,7 +48,7 @@ public class SetVisForm extends BaseForm {
         valutazioni = new java.awt.List();
         mainFrame.add(valutazioni);
         
-        String [] aValutazioni = visitatore.Valutazioni();
+        String [] aValutazioni = null;//visitatore.Valutazioni();
         
         if (aValutazioni != null)
             for ( int i=0; i<aValutazioni.length; i++ )
