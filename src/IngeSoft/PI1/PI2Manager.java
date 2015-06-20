@@ -83,13 +83,7 @@ public class PI2Manager {
             
             // elimina tutte le votazioni sui visitatore
             for (Visitatore visitatore : getListVisitatore()) {
-                for (Valutazione val : visitatore.getValutazioni()) {
-                    if (val.ivaEspositore.equalsIgnoreCase(_IVA)) {
-                        visitatore.getValutazioni().remove(val);
-                        
-                        break;
-                    }
-                }
+                visitatore.deleteValutazione(esp);
             }
             
             return true;

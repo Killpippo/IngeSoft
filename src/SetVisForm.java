@@ -32,7 +32,7 @@ public class SetVisForm extends BaseForm {
         visite = new java.awt.List();
         mainFrame.add(visite);
         
-        Calendar [] aVisite = visitatore.Visite();
+        Calendar [] aVisite = visitatore.getVisite();
         
         if (aVisite != null)
             for ( int i=0; i<aVisite.length; i++ )
@@ -77,7 +77,7 @@ public class SetVisForm extends BaseForm {
                      try {
                          date.setTime( formatDate.parse(data) );
                      
-                        visitatore.addVisita(date);
+                        //visitatore.addVisita(date);
                      
                         visite.add( data );
                      }
@@ -108,7 +108,7 @@ public class SetVisForm extends BaseForm {
                 try {
                     date.setTime( formatDate.parse(data) );
 
-                   visitatore.addVisita(date);
+                   //visitatore.addVisita(date);
 
                    visite.add( data );
                 }

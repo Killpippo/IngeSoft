@@ -33,10 +33,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         //RandomDataGenerator.EseguiTest();
         
         // aggiornamento dati
-        //AggiornaListe();
-        Visitatore visitatore = new Visitatore( "nome", "cognome", "CF");
-        PI2Manager.addVisitatore(visitatore);
-        PI2Manager.deleteVisitatore("CF");
+        //AggiornaListe();        
     }
     
     @SuppressWarnings("unchecked")
@@ -199,10 +196,20 @@ public class MainPI2Form extends javax.swing.JFrame {
 
         btnAddVis.setText("Aggiungi");
         btnAddVis.setActionCommand("ADDVIS");
+        btnAddVis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddVisMouseClicked(evt);
+            }
+        });
 
         btnChgVis.setText("Modifica");
         btnChgVis.setActionCommand("CHGVIS");
         btnChgVis.setEnabled(false);
+        btnChgVis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnChgVisMouseClicked(evt);
+            }
+        });
 
         btnDelVis.setText("Rimuovi");
         btnDelVis.setActionCommand("DELVIS");
@@ -358,6 +365,19 @@ public class MainPI2Form extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDelEspMouseClicked
 
+    private void btnAddVisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddVisMouseClicked
+        VisitatoreForm frmVisitatore = new VisitatoreForm( this, true, this, null );
+        frmVisitatore.setVisible(true);
+    }//GEN-LAST:event_btnAddVisMouseClicked
+
+    private void btnChgVisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChgVisMouseClicked
+        String szCF = tblVisitatori.getValueAt( tblVisitatori.getSelectedRow(), 2 ).toString();
+        
+        VisitatoreForm frmVisitatore = new VisitatoreForm( this, true, this, PI2Manager.getVisitatore(szCF) );
+        
+        frmVisitatore.setVisible(true);
+    }//GEN-LAST:event_btnChgVisMouseClicked
+
     public static void main(String args[]) {
         
         try {
@@ -387,7 +407,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         });
     }
     
-    private void AggiornaVisitatori()
+    public void AggiornaVisitatori()
     {
         DefaultTableModel tbl = (DefaultTableModel) tblVisitatori.getModel();
         
@@ -403,7 +423,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         }
     }
     
-    private void AggiornaEspositori()
+    public void AggiornaEspositori()
     {
         DefaultTableModel tbl = (DefaultTableModel) tblEspositori.getModel();
         

@@ -31,7 +31,7 @@ public class VisitatoreTest {
         for ( int i=0; i<3; i++)
             visitatore.addVisita(new GregorianCalendar(2000,1,1));        
         
-        assertEquals( 1, visitatore.Visite().length );
+        assertEquals( 1, visitatore.getVisite().length );
     }
 
     /**

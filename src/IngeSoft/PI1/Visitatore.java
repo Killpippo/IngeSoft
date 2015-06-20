@@ -7,7 +7,7 @@ import java.text.*;
 public class Visitatore extends Entity implements Serializable {
     
     private String cognome;
-    private List<Calendar> visite;
+    private List<GregorianCalendar> visite;
     private List<Valutazione> valutazioni;
     
     
@@ -41,11 +41,26 @@ public class Visitatore extends Entity implements Serializable {
         return getCodice();
     }
     
-    public void addVisita( Calendar _visita ) {
+    public void addVisita( GregorianCalendar _visita ) {
         // gia' inserita
         if (visite.contains(_visita)) return;
         
         visite.add(_visita);
+    }
+    
+    public void deleteVisita( GregorianCalendar _visita ) {
+        // non presente
+        if (!visite.contains(_visita)) return;
+        
+        visite.remove(_visita);
+        
+        for (int i=0; i<valutazioni.size(); i++) {
+            if (valutazioni.get(i).visita.compareTo(_visita) == 0)
+            {
+                valutazioni.remove(i);
+                i--; // riavvolgo l'indice
+            }
+        }
     }
     
     public boolean addValutazione( Espositore _espositore, Calendar _visita, int _valutazione ) {
@@ -65,10 +80,35 @@ public class Visitatore extends Entity implements Serializable {
         return true;
     }
     
-    public Calendar[] Visite() {
+    public Valutazione getValutazione( Espositore _espositore ) {
+        if (_espositore != null)
+        {
+            for (Valutazione val : valutazioni) {
+                if (val.ivaEspositore.compareTo(_espositore.getIVA()) == 0)
+                    return val;
+            }
+        }
+        
+        return null;
+    }
+    
+    public void deleteValutazione( Espositore _espositore ) {
+        // non valido
+        if (_espositore == null) return;
+        
+        for (Valutazione val : valutazioni) {
+            if (val.ivaEspositore.compareTo(_espositore.getIVA()) == 0) {
+                valutazioni.remove(val);
+                
+                return;
+            }
+        }
+    }
+    
+    public GregorianCalendar[] getVisite() {
         if (visite.isEmpty()) return null;
         
-        Calendar [] aVisite = new Calendar[visite.size()];
+        GregorianCalendar [] aVisite = new GregorianCalendar[visite.size()];
         
         aVisite = visite.toArray(aVisite);
                 

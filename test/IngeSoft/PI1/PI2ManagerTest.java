@@ -14,7 +14,7 @@ public class PI2ManagerTest {
     @Before
     public void setUp() throws Exception {
         PI2Manager.SvuotaDati();
-        System.out.println("Restart test");
+        //System.out.println("Restart test");
     }
 
     @Test

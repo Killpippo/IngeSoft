@@ -327,6 +327,9 @@
         <Property name="text" type="java.lang.String" value="Aggiungi"/>
         <Property name="actionCommand" type="java.lang.String" value="ADDVIS"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddVisMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnChgVis">
       <Properties>
@@ -334,6 +337,9 @@
         <Property name="actionCommand" type="java.lang.String" value="CHGVIS"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnChgVisMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDelVis">
       <Properties>
