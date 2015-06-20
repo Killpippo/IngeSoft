@@ -1,4 +1,4 @@
-package IngeSoft.PI1;
+package IngeSoft.PI2;
 
 import org.junit.After;
 import org.junit.AfterClass;

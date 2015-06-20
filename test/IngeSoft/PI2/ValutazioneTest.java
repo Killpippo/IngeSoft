@@ -1,4 +1,4 @@
-package IngeSoft.PI1;
+package IngeSoft.PI2;
 
 import java.util.GregorianCalendar;
 import org.junit.Test;

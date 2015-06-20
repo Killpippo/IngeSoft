@@ -1,4 +1,6 @@
 
+import IngeSoft.PI2.PI2Manager;
+import IngeSoft.PI2.RandomDataGenerator;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -7,7 +9,6 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import java.util.*;
-import IngeSoft.PI1.*;
 import javax.swing.table.DefaultTableModel;
 
 public class MainPI2Form extends javax.swing.JFrame {
@@ -341,7 +342,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         
         RandomDataGenerator.EseguiTest();
         JOptionPane.showMessageDialog(mainForm, "Generazione dati di test completata");
-        btnSave.setEnabled(true);
+        setPendingSave();
         AggiornaListe();
     }//GEN-LAST:event_btnTestMouseClicked
 
@@ -349,7 +350,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         String szCF = tblVisitatori.getValueAt( tblVisitatori.getSelectedRow(), 2 ).toString();
         
         if (PI2Manager.deleteVisitatore(szCF)) {               
-            btnSave.setEnabled( true );
+            setPendingSave();
             
             ((DefaultTableModel) tblVisitatori.getModel()).removeRow(tblVisitatori.getSelectedRow());
         }
@@ -359,7 +360,7 @@ public class MainPI2Form extends javax.swing.JFrame {
         String szIVA = tblEspositori.getValueAt( tblEspositori.getSelectedRow(), 3 ).toString();
         
         if (PI2Manager.deleteEspositore(szIVA)) {               
-            btnSave.setEnabled( true );
+            setPendingSave();
             
             ((DefaultTableModel) tblEspositori.getModel()).removeRow(tblEspositori.getSelectedRow());
         }
@@ -376,6 +377,8 @@ public class MainPI2Form extends javax.swing.JFrame {
         VisitatoreForm frmVisitatore = new VisitatoreForm( this, true, this, PI2Manager.getVisitatore(szCF) );
         
         frmVisitatore.setVisible(true);
+        
+        AggiornaVisitatori();
     }//GEN-LAST:event_btnChgVisMouseClicked
 
     public static void main(String args[]) {
@@ -407,8 +410,11 @@ public class MainPI2Form extends javax.swing.JFrame {
         });
     }
     
-    public void AggiornaVisitatori()
+    private void AggiornaVisitatori()
     {
+        btnDelVis.setEnabled(false);
+        btnChgVis.setEnabled(false);
+                        
         DefaultTableModel tbl = (DefaultTableModel) tblVisitatori.getModel();
         
         tbl.setRowCount(0);
@@ -423,8 +429,10 @@ public class MainPI2Form extends javax.swing.JFrame {
         }
     }
     
-    public void AggiornaEspositori()
+    private void AggiornaEspositori()
     {
+        btnDelEsp.setEnabled(false);
+        
         DefaultTableModel tbl = (DefaultTableModel) tblEspositori.getModel();
         
         tbl.setRowCount(0);
@@ -456,83 +464,11 @@ public class MainPI2Form extends javax.swing.JFrame {
          else return fd.getDirectory() + fd.getFile();
     }
     
-    private class ButtonClickListener implements ActionListener{
-      public void actionPerformed(ActionEvent e) {
-         String command = e.getActionCommand();
-         
-         switch (command)
-         {
-             case "LOAD":
-             {
-                 FileDialog loadDialog = new FileDialog( mainForm, "Carica dati", FileDialog.LOAD );
-                 loadDialog.setVisible(true);
-                 String file = loadDialog.getFile();                 
-                 if (file != null) {
-                     if (!PI2Manager.LoadFromFile( PathFile(loadDialog) ))
-                         JOptionPane.showMessageDialog(mainForm, "Errore caricamento file: " + file );
-                 }
-                 else
-                 {
-                     AggiornaListe();
-                 }
-             } break;
-                 
-             case "ADDESP":
-             {
-//                 AddEspForm addEsp = new AddEspForm( mainForm );
-//                 addEsp.Show();
-             } break;
-                 
-             case "ADDVIS":
-//                 AddVisForm addVis = new AddVisForm( mainForm );
-//                 addVis.Show();
-                 break;
-                 
-             case "CHGVIS":
-//                 String codiceFiscale = JOptionPane.showInputDialog("Inserisci Codice Fiscale");
-//                 if (codiceFiscale != null) {
-//                     Visitatore visitatore = PI2Manager.getVisitatore(codiceFiscale);
-//                     
-//                     if (visitatore == null) {
-//                         JOptionPane.showMessageDialog(mainFrame, "Visitatore inesistente");
-//                         return;                         
-//                     }
-//                     
-//                     SetVisForm setVisForm = new SetVisForm(mainForm, visitatore);
-//                     setVisForm.Show();
-//                 }
-                 break;
-                 
-             case "DELVIS":
-             {                 
-             } break;
-                 
-             case "SAVE":
-                 FileDialog saveDialog = new FileDialog( mainForm, "Carica dati", FileDialog.SAVE );
-                 saveDialog.setVisible(true);
-                 String file = saveDialog.getFile();                 
-                 if (file != null) {
-                     if (!PI2Manager.SaveOnFile( PathFile(saveDialog) ))
-                         JOptionPane.showMessageDialog(mainForm, "Errore salvataggio file: " + file);
-                     else
-                         btnSave.setEnabled(false);
-                 }
-                 break;
-                 
-             case "TEST":
-                 RandomDataGenerator.EseguiTest();
-                 JOptionPane.showMessageDialog(mainForm, "Generazione dati di test completata");
-                 btnSave.setEnabled(true);
-                 AggiornaListe();
-                 break;
-                 
-             case "EXIT":
-                 System.exit(0);
-                 break;
-         }	
-      }		
-   } 
-
+    public void setPendingSave() {
+        btnSave.setEnabled( true );
+    }
+            
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEsp;
     private javax.swing.JButton btnAddVis;

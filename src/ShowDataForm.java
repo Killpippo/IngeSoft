@@ -3,7 +3,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
-import IngeSoft.PI1.*;
 
 public class ShowDataForm extends BaseForm {
     

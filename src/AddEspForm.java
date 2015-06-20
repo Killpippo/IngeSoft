@@ -1,9 +1,10 @@
+import IngeSoft.PI2.PI2Manager;
+import IngeSoft.PI2.Espositore;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
-import IngeSoft.PI1.*;
 
 public class AddEspForm extends BaseForm {
     

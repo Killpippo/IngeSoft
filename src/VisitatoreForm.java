@@ -1,7 +1,8 @@
 
-import IngeSoft.PI1.PI2Manager;
-import java.text.SimpleDateFormat;
+
 import javax.swing.*;
+import IngeSoft.PI2.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class VisitatoreForm extends javax.swing.JDialog {
 
     private MainPI2Form mainForm;
-    private IngeSoft.PI1.Visitatore visitatore;
+    private IngeSoft.PI2.Visitatore visitatore;
     private SimpleDateFormat formatDate;
     
     /**
@@ -25,7 +26,7 @@ public class VisitatoreForm extends javax.swing.JDialog {
         this( parent, modal, _mainForm, null );
     }
     
-    public VisitatoreForm(java.awt.Frame parent, boolean modal, MainPI2Form _mainForm, IngeSoft.PI1.Visitatore _visitatore ) {
+    public VisitatoreForm(java.awt.Frame parent, boolean modal, MainPI2Form _mainForm, IngeSoft.PI2.Visitatore _visitatore ) {
         super(parent, modal);
         initComponents();
         
@@ -48,7 +49,7 @@ public class VisitatoreForm extends javax.swing.JDialog {
         }
         else
         {
-            visitatore = new IngeSoft.PI1.Visitatore();
+            visitatore = new IngeSoft.PI2.Visitatore();
         }
         
         // evento selezione liste
@@ -160,6 +161,11 @@ public class VisitatoreForm extends javax.swing.JDialog {
 
         btnDelValutazione.setText("Rimuovi");
         btnDelValutazione.setEnabled(false);
+        btnDelValutazione.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDelValutazioneMouseClicked(evt);
+            }
+        });
 
         btnCancel.setText("Annulla");
         btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,6 +175,11 @@ public class VisitatoreForm extends javax.swing.JDialog {
         });
 
         btnOK.setText("OK");
+        btnOK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnOKMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -309,6 +320,49 @@ public class VisitatoreForm extends javax.swing.JDialog {
         AggiornaListaVisite();
     }//GEN-LAST:event_btnDelVisitaMouseClicked
 
+    private void btnDelValutazioneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelValutazioneMouseClicked
+        String szIVA = tblEspositori.getValueAt( tblEspositori.getSelectedRow(), 3 ).toString();
+        
+        visitatore.deleteValutazione( PI2Manager.getEspositore(szIVA));
+        
+        AggiornaListaValutazioni();
+    }//GEN-LAST:event_btnDelValutazioneMouseClicked
+
+    private void btnOKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOKMouseClicked
+        String szParametriMancanti = "";
+        
+        if (txtNome.getText().length() == 0) szParametriMancanti += "\nNome";
+        if (txtCognome.getText().length() == 0) szParametriMancanti += "\nCognome";
+        if (txtCodiceFiscale.getText().length() == 0) szParametriMancanti += "\nCodice Fiscale";
+        
+        if (szParametriMancanti.length() > 0) {
+            JOptionPane.showMessageDialog(this, "I seguenti parametri obbligatori non sono stati inseriti:" + szParametriMancanti );
+            
+            return;
+        }
+        
+        // nuovo visitatore lo rilevo dalla mancanza di CF
+        visitatore.setNome(txtNome.getText());
+        visitatore.setCognome(txtCognome.getText());
+        
+        if (visitatore.getCodiceFiscale().length() == 0) {            
+            visitatore.setCodiceFiscale(txtCodiceFiscale.getText());
+            
+            if (PI2Manager.addVisitatore(visitatore) == false) {
+                    // azzero il dato per permetterne la correzione
+                    visitatore.setCodiceFiscale( "" );
+
+                    JOptionPane.showMessageDialog(this, "Un visitatore con lo stesso Codice Fiscale esiste gia'" );
+
+                return;
+            }
+        }
+        
+        mainForm.setPendingSave();
+        
+        dispose();
+    }//GEN-LAST:event_btnOKMouseClicked
+
     private GregorianCalendar getVisitaSelezionata()
     {
         // visita non selezionata
@@ -365,12 +419,11 @@ public class VisitatoreForm extends javax.swing.JDialog {
         
         lblValutazioni.setText("Espositori visitati il giorno: " + formatDate.format( visita.getTime() ) );
         
-        for (IngeSoft.PI1.Valutazione valutazione : visitatore.getValutazioni()) {
-            
+        for (IngeSoft.PI2.Valutazione valutazione : visitatore.getValutazioni()) {            
             // valutazione relativa ad altro giorno
             if (valutazione.visita.compareTo(visita) != 0) continue;
             
-            IngeSoft.PI1.Espositore espositore = PI2Manager.getEspositore(valutazione.ivaEspositore);
+            IngeSoft.PI2.Espositore espositore = PI2Manager.getEspositore(valutazione.ivaEspositore);
             
             // espositore non esistente
             if (espositore == null) continue;
@@ -419,6 +472,7 @@ public class VisitatoreForm extends javax.swing.JDialog {
 //            }
 //        });
 //    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddValutazione;

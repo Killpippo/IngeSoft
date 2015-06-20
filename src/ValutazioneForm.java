@@ -1,5 +1,5 @@
 
-import IngeSoft.PI1.PI2Manager;
+import IngeSoft.PI2.PI2Manager;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import javax.swing.event.ListSelectionEvent;
@@ -15,13 +15,13 @@ import javax.swing.table.DefaultTableModel;
 
 public class ValutazioneForm extends javax.swing.JDialog {
 
-    IngeSoft.PI1.Visitatore visitatore;
+    IngeSoft.PI2.Visitatore visitatore;
     GregorianCalendar date;
     
     /**
      * Creates new form ValutazioneForm
      */
-    public ValutazioneForm(java.awt.Frame parent, boolean modal, IngeSoft.PI1.Visitatore _visitatore, GregorianCalendar _date) {
+    public ValutazioneForm(java.awt.Frame parent, boolean modal, IngeSoft.PI2.Visitatore _visitatore, GregorianCalendar _date) {
         super(parent, modal);
         initComponents();
         
@@ -34,7 +34,7 @@ public class ValutazioneForm extends javax.swing.JDialog {
         
         tbl.setRowCount(0);
         
-        for ( IngeSoft.PI1.Espositore esp : PI2Manager.getListEspositori() )
+        for ( IngeSoft.PI2.Espositore esp : PI2Manager.getListEspositori() )
         {
            // escludi gli espositori gia' valutati 
            if (visitatore.getValutazione(esp) != null) continue;
@@ -71,6 +71,7 @@ public class ValutazioneForm extends javax.swing.JDialog {
         tblEspositori = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         sldValutazione = new javax.swing.JSlider();
+        lblValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -126,6 +127,13 @@ public class ValutazioneForm extends javax.swing.JDialog {
         sldValutazione.setSnapToTicks(true);
         sldValutazione.setToolTipText("");
         sldValutazione.setValue(5);
+        sldValutazione.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sldValutazioneStateChanged(evt);
+            }
+        });
+
+        lblValue.setText("5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,8 +143,7 @@ public class ValutazioneForm extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(sldValutazione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,7 +151,12 @@ public class ValutazioneForm extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblValutazioni, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sldValutazione, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblValue)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -156,15 +168,14 @@ public class ValutazioneForm extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnOK)
-                            .addComponent(btnCancel)))
-                    .addComponent(sldValutazione, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(sldValutazione, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOK)
+                    .addComponent(btnCancel))
                 .addContainerGap())
         );
 
@@ -182,6 +193,10 @@ public class ValutazioneForm extends javax.swing.JDialog {
         
         dispose();
     }//GEN-LAST:event_btnOKMouseClicked
+
+    private void sldValutazioneStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldValutazioneStateChanged
+        lblValue.setText( String.valueOf(sldValutazione.getValue()) );
+    }//GEN-LAST:event_sldValutazioneStateChanged
 
 //    /**
 //     * @param args the command line arguments
@@ -230,6 +245,7 @@ public class ValutazioneForm extends javax.swing.JDialog {
     private javax.swing.JButton btnOK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblValue;
     private javax.swing.JLabel lblValutazioni;
     private javax.swing.JSlider sldValutazione;
     private javax.swing.JTable tblEspositori;
