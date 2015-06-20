@@ -385,16 +385,16 @@ public class VisitatoreForm extends javax.swing.JDialog {
     {
         GregorianCalendar [] aVisite = visitatore.getVisite();
             
+        DefaultListModel oList = new DefaultListModel(); //(DefaultListModel)lstVisite.getModel();
+        
         if (aVisite != null)
         {
-            DefaultListModel oList = new DefaultListModel(); //(DefaultListModel)lstVisite.getModel();
-
             for ( Calendar visita : aVisite) {
                 oList.addElement( formatDate.format( visita.getTime() ) );
             }
-
-            lstVisite.setModel(oList);
         }
+        
+        lstVisite.setModel(oList);
         
         btnDelVisita.setEnabled(false);
         

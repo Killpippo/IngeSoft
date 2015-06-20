@@ -369,6 +369,7 @@ public class MainPI2Form extends javax.swing.JFrame {
     private void btnAddVisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddVisMouseClicked
         VisitatoreForm frmVisitatore = new VisitatoreForm( this, true, this, null );
         frmVisitatore.setVisible(true);
+        AggiornaVisitatori();
     }//GEN-LAST:event_btnAddVisMouseClicked
 
     private void btnChgVisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnChgVisMouseClicked
