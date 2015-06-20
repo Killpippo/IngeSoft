@@ -1,13 +1,1 @@
-Filippo Solimando 812133
 
-Il progetto e' stato fatto con NetBeans 8.0.2
-
-Prima prova itinere, Ingegneria del Software 2015
-
-Nel package IngeSoft.P1 ho inserito le principali classi di funzionamento, non ho avuto tempo di commentare e documentare sufficientemente tutto il codice.
-
-Nel package di default ci sono le classi che implementano l'interfaccia grafica.
-
-Per semplicita' ho salvato i dati in formato binario
-
-Non ho avuto tempo di provare l'applicativo su Windows, l'ho sviluppato su sistema Linux (Ubuntu).
