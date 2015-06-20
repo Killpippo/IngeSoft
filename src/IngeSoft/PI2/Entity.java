@@ -1,5 +1,6 @@
 package IngeSoft.PI2;
 
+
 import java.io.*;
         
 public class Entity implements Serializable {
