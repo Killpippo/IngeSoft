@@ -139,6 +139,11 @@ public class MainPI2Form extends javax.swing.JFrame {
 
         btnAddEsp.setText("Aggiungi");
         btnAddEsp.setActionCommand("ADDESP");
+        btnAddEsp.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAddEspMouseClicked(evt);
+            }
+        });
 
         btnDelEsp.setText("Rimuovi");
         btnDelEsp.setActionCommand("DELESP");
@@ -159,7 +164,7 @@ public class MainPI2Form extends javax.swing.JFrame {
             }
         });
 
-        btnTest.setText("Genera Dati Casuali");
+        btnTest.setText("Genera dati di prova");
         btnTest.setActionCommand("TEST");
         btnTest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -252,7 +257,7 @@ public class MainPI2Form extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnTest, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -381,6 +386,14 @@ public class MainPI2Form extends javax.swing.JFrame {
         
         AggiornaVisitatori();
     }//GEN-LAST:event_btnChgVisMouseClicked
+
+    private void btnAddEspMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddEspMouseClicked
+        EspositoreForm frmEspositore = new EspositoreForm( this, true, this, null );
+        
+        frmEspositore.setVisible(true);
+        
+        AggiornaEspositori();
+    }//GEN-LAST:event_btnAddEspMouseClicked
 
     public static void main(String args[]) {
         

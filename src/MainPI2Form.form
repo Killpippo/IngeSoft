@@ -99,7 +99,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnSave" min="-2" pref="155" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnTest" min="-2" pref="155" max="-2" attributes="0"/>
+                              <Component id="btnTest" min="-2" pref="181" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -238,6 +238,9 @@
         <Property name="text" type="java.lang.String" value="Aggiungi"/>
         <Property name="actionCommand" type="java.lang.String" value="ADDESP"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddEspMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnDelEsp">
       <Properties>
@@ -265,7 +268,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnTest">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Genera Dati Casuali"/>
+        <Property name="text" type="java.lang.String" value="Genera dati di prova"/>
         <Property name="actionCommand" type="java.lang.String" value="TEST"/>
       </Properties>
       <Events>
