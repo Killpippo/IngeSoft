@@ -9,7 +9,13 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="IngSoft_PI1" default="default" basedir=".">
     <description>Builds, tests, and runs the project IngSoft_PI1.</description>
+    
     <import file="nbproject/build-impl.xml"/>
+    
+    <target depends="-do-test-run" description="Build and test whole project." name="-post-jar">
+        <echo>Test ruuuuun</echo>
+    </target>
+    
     <!--
 
     There exist several targets which are by default empty and which can be 
