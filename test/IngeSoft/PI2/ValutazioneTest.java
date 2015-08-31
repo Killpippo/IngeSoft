@@ -14,8 +14,8 @@ public class ValutazioneTest {
     public void testEqualsSame() {
         Valutazione v1 = new Valutazione("123456", new GregorianCalendar(2000, 1, 1), 123 );
         Valutazione v2 = new Valutazione("123456", new GregorianCalendar(2000, 1, 1), 123 );
-        //assertEquals( true, v1.equals(v2));
-        assertEquals( false, v1.equals(v2));
+        assertEquals( true, v1.equals(v2));
+        //assertEquals( false, v1.equals(v2));
     }
     
     @Test
