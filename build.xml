@@ -12,8 +12,8 @@
     
     <import file="nbproject/build-impl.xml"/>
     
-    <target depends="-do-test-run" description="Build and test whole project." name="-post-jar">
-        <echo>Test ruuuuun</echo>
+    <target depends="init,compile,-do-test-run" description="Build and test whole project." name="-post-jar">
+        <echo>Builded and test ran</echo>
     </target>
     
     <!--
