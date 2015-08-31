@@ -12,9 +12,9 @@
     
     <import file="nbproject/build-impl.xml"/>
     
-<!--    <target depends="init,compile,-do-test-run" description="Build and test whole project." name="-post-jar">
+    <target depends="init,compile,-do-test-run" description="Build and test whole project." name="-post-jar">
         <echo>Builded and test ran</echo>
-    </target>-->
+    </target>
     
     <!--
 
