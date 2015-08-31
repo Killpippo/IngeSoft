@@ -1,0 +1,9 @@
+Filippo Solimando 812133
+
+Prima prova itinere, Ingegneria del Software 2015
+
+Nel package IngeSoft.P1 ho inserito le principali classi di funzionamento, non ho avuto tempo di commentare e documentare sufficientemente tutto il codice.
+
+Nel package di default ci sono le classi che implementano l'interfaccia grafica.
+
+Per semplicita' ho salvato i dati in formato binario
